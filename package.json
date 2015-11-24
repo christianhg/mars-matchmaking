@@ -1,0 +1,26 @@
+{
+  "name": "mars-matchmaking",
+  "version": "0.1.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/christianhg/cci-assignment.git"
+  },
+  "author": "Christian Grøngaard <christianhg@gmail.com>",
+  "devDependencies": {
+    "browser-sync": "^2.10.0",
+    "gulp": "^3.9.0",
+    "gulp-angular-filesort": "^1.1.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-jshint": "^2.0.0",
+    "gulp-minify-css": "^1.2.1",
+    "gulp-ng-annotate": "^1.1.0",
+    "gulp-plumber": "^1.0.1",
+    "gulp-ruby-sass": "^2.0.5",
+    "gulp-strip-debug": "^1.1.0",
+    "gulp-uglify": "^1.5.1",
+    "jshint": "^2.8.0",
+    "jshint-stylish": "^2.1.0"
+  }
+}

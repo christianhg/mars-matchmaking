@@ -1,0 +1,13 @@
+{
+  "name": "mars-matchmaking",
+  "homepage": "https://github.com/christianhg/cci-assignment",
+  "authors": [
+    "Christian Grøngaard <christianhg@gmail.com>"
+  ],
+  "description": "",
+  "dependencies": {
+    "angular": "~1.4.8",
+    "bootstrap": "~3.3.5",
+    "angular-ui-router": "ui-router#~0.2.15"
+  }
+}

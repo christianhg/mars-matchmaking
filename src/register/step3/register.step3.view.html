@@ -1,0 +1,33 @@
+<progress-bar value="75" label="Step 3"></progress-bar>
+
+<div class="form-group">
+  <label for="space-interests">Space interests</label>
+  <select ng-model="vm.registration.space.interests" id="space-interests" class="form-control" multiple>
+    <option ng-repeat="spaceInterest in vm.spaceInterests" value="{{spaceInterest.name}}">{{spaceInterest.name}}</option>
+  </select>
+  <div class="help-block">
+    Pick as many as you like...
+  </div>
+</div>
+
+<!-- <div ng-repeat="spaceInterest in vm.spaceInterests" class="checkbox">
+  <label>
+    <input ng-model="vm.registration.space.interests" type="checkbox" name="space-insterests" value="{{spaceInterest.value}}">
+    {{spaceInterest.name}}
+  </label>
+</div> -->
+
+<div class="form-group">
+  <label for="space-passion">Space passion</label>
+  <textarea ng-model="vm.registration.space.passion" name="space-passion" class="form-control" rows="8"></textarea>
+  <div class="help-block">
+    Write about your space passion...
+  </div>
+</div>
+
+<nav>
+  <ul class="pager">
+    <li class="previous"><a ui-sref="register.step2"><span aria-hidden="true">&larr;</span> Previous</a></li>
+    <li class="next"><a ui-sref="register.step4">Next <span aria-hidden="true">&rarr;</span></a></li>
+  </ul>
+</nav>

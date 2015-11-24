@@ -1,0 +1,40 @@
+<progress-bar value="50" label="Step 2"></progress-bar>
+
+<div class="form-group">
+  <label for="birthday">Birthday</label>
+  <input ng-model="vm.registration.personal.birthday" class="form-control" type="date" name="birthday">
+</div>
+
+<div class="form-group">
+  <label>Gender</label>
+  <div class="radio">
+    <label>
+      <input ng-model="vm.registration.personal.gender" type="radio" name="personal.gender" value="female">
+      Female
+    </label>
+  </div>
+  <div class="radio">
+    <label>
+      <input ng-model="vm.registration.personal.gender" type="radio" name="personal.gender" value="male">
+      Male
+    </label>
+  </div>
+  <div class="radio">
+    <label>
+      <input ng-model="vm.registration.personal.gender" type="radio" name="personal.gender" value="transgender">
+      Transgender
+    </label>
+  </div>
+</div>
+
+<div class="form-group">
+  <label for="favoriteDish">Favorite dish</label>
+  <input ng-model="vm.registration.personal.favoriteDish" type="text" name="favoriteDish" class="form-control" placeholder="Favorite dish">
+</div>
+
+<nav>
+  <ul class="pager">
+    <li class="previous"><a ui-sref="register.step1"><span aria-hidden="true">&larr;</span> Previous</a></li>
+    <li class="next"><a ui-sref="register.step3">Next <span aria-hidden="true">&rarr;</span></a></li>
+  </ul>
+</nav>
