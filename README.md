@@ -4,6 +4,8 @@ Are you going to Mars? Register for the Mars Matchmaking program and bunk togeth
 
 All you have to do is fill out your personal details and our intergalactic algorithm takes care of the rest.
 
+[Try the demo](http://mmm.groengaard.dk)
+
 ## Prerequisites
 - [Bower](http://bower.io)
 - [Gulp](http://gulpjs.com/)
