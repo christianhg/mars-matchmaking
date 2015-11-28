@@ -9,12 +9,7 @@
       $stateProvider
           .state('register.step1', {
               url: '/1',
-              templateUrl: 'register.step1.view.html',
-              // controller: 'RegisterStep1Controller',
-              // controllerAs: 'vm',
-              // data: {
-              //     pageTitle: 'Mars Matchmaking > Register > 1'
-              // }
+              templateUrl: 'register.step1.view.html'
           });
   }
 })();
