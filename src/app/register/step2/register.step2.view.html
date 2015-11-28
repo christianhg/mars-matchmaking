@@ -2,7 +2,15 @@
 
 <div class="form-group">
   <label for="birthday">Birthday</label>
-  <input ng-model="vm.registration.personal.birthday" class="form-control" type="date" name="birthday">
+  <p class="input-group">
+    <input type="text" class="form-control" uib-datepicker-popup ng-model="vm.registration.personal.birthday" is-open="step2.status.opened" name="birthday" min-date="step2.minDate" max-date="step2.maxDate" datepicker-options="step2.dateOptions" close-text="Close">
+    <span class="input-group-btn">
+      <button type="button" class="btn btn-default" ng-click="step2.openCalendar($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+    </span>
+  </p>
+  <div class="help-block">
+    Format: YYYY-MM-DD
+  </div>
 </div>
 
 <div class="form-group">
