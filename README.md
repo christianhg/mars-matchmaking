@@ -24,8 +24,11 @@ Install dev dependencies:
 $ npm install
 ```
 
-## Build
-Build and serve:
+## Development
+Spin up development environment:
 ```
-$ gulp s
+$ gulp dev
 ```
+
+## To-do
+- Create Gulp task for distributing app
