@@ -13,8 +13,7 @@
 				controller: 'HomeController',
 				controllerAs: 'vm',
 				data: {
-					pageTitle: 'Mars Matchmaking',
-					pageClass: 'page-home'
+					pageTitle: 'Home'
 				}
 			});
 	}

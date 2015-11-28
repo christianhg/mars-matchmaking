@@ -13,8 +13,7 @@
 				controller: 'RegisterController',
 				controllerAs: 'vm',
 				data: {
-					pageTitle: 'Mars Matchmaking > Register',
-					pageClass: 'page-register'
+					pageTitle: 'Register'
 				}
 			});
 	}
