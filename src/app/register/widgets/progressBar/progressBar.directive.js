@@ -7,7 +7,7 @@
 
   function progressBar() {
     var directive = {
-      templateUrl: 'register/widgets/progressBar/progressBar.view.html',
+      templateUrl: 'progressBar.view.html',
       restrict: 'E',
       scope: {
         label: "@",
@@ -23,7 +23,7 @@
      * @ngInject
      */
     function ProgressBarController($scope) {
-    
+
     }
   }
 })();

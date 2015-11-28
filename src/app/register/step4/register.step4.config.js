@@ -9,7 +9,7 @@
       $stateProvider
           .state('register.step4', {
               url: '/4',
-              templateUrl: 'register/step4/register.step4.view.html',
+              templateUrl: 'register.step4.view.html',
               // controller: 'RegisterStep4Controller',
               // controllerAs: 'vm',
               // data: {

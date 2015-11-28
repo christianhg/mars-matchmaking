@@ -7,13 +7,13 @@
 
   function config($stateProvider) {
       $stateProvider
-          .state('register.step2', {
-              url: '/2',
-              templateUrl: 'register/step2/register.step2.view.html',
-              // controller: 'RegisterStep2Controller',
+          .state('register.step1', {
+              url: '/1',
+              templateUrl: 'register.step1.view.html',
+              // controller: 'RegisterStep1Controller',
               // controllerAs: 'vm',
               // data: {
-              //     pageTitle: 'Mars Matchmaking > Register > 2'
+              //     pageTitle: 'Mars Matchmaking > Register > 1'
               // }
           });
   }
