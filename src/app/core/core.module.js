@@ -3,6 +3,7 @@
 
   angular
     .module('mars-matchmaking.core', [
+      'ngMessages',
       'ui.bootstrap',
       'ui.router'
     ]);
