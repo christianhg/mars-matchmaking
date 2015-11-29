@@ -7,7 +7,11 @@
 
     function spaceInterests() {
       return {
-        get: [
+        getSpaceInterests: getSpaceInterests
+      };
+
+      function getSpaceInterests() {
+        return [
           {
             "name": "Constellations",
             "value": "constellations"
@@ -27,9 +31,8 @@
           {
             "name": "Xenomorphs",
             "value": "xenomorphs"
-          },
-
-        ]
-      };
+          }
+        ];
+      }
     }
 })();
