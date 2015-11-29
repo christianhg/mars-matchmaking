@@ -6,6 +6,10 @@ All you have to do is fill out your personal details and our intergalactic algor
 
 [Try the demo](http://mmm.starbeast.dk)
 
+## Purpose
+
+Personal AngularJS showcase and practice field.
+
 ## Prerequisites
 - [Bower](http://bower.io)
 - [Gulp](http://gulpjs.com/)
@@ -24,8 +28,14 @@ Install dev dependencies:
 $ npm install
 ```
 
+## Build
+Build application for testing and staging:
+```
+$ gulp build
+```
+
 ## Development
-Spin up development environment:
+Spin up development environment on `http://localhost:3000`:
 ```
 $ gulp dev
 ```
