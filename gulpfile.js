@@ -27,7 +27,7 @@
       'bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.woff',
       'bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2',
     ];
-    var dest = './build/css/fonts';
+    var dest = './build/fonts';
 
     gulp.src(src)
       .pipe(plumber())
@@ -50,18 +50,22 @@
       .pipe(gulp.dest('./build'));
   });
 
+  gulp.task('build:index', ['build:moveIndex'], function() {
+
+  });
+
   gulp.task('build:compileAppCSS', function() {
     return sass('./src/scss/app.scss', { sourcemap: true})
       .pipe(sourcemaps.write())
       .pipe(autoprefixer('last 2 versions'))
-      .pipe(gulp.dest('./build/css/app'))
+      .pipe(gulp.dest('./build/css'))
   });
 
-  gulp.task('build:injectAppCSS', ['build:moveIndex', 'build:compileAppCSS'], function() {
+  gulp.task('build:injectAppCSS', ['build:index', 'build:compileAppCSS'], function() {
     return gulp.src('./build/index.html')
       .pipe(
         inject(
-          gulp.src(['./build/css/app/*.css']),
+          gulp.src(['./build/css/app.css']),
             {relative: true, name: 'app'}
         )
       )
@@ -78,14 +82,15 @@
     ];
 
     return gulp.src(vendorCSS)
-      .pipe(gulp.dest('./build/css/vendor'));
+      .pipe(concat('vendor.css'))
+      .pipe(gulp.dest('./build/css'));
   });
 
-  gulp.task('build:injectVendorCSS', ['build:moveIndex', 'build:moveVendorCSS'], function() {
+  gulp.task('build:injectVendorCSS', ['build:index', 'build:moveVendorCSS'], function() {
     return gulp.src('./build/index.html')
       .pipe(
         inject(
-          gulp.src(['./build/css/vendor/*.css']),
+          gulp.src(['./build/css/vendor.css']),
             {relative: true, name: 'vendor'}
         )
       )
@@ -102,15 +107,17 @@
       .pipe(jshint())
       .pipe(jshint.reporter(stylish))
       .pipe(ngAnnotate({add: true, single_quotes: true}))
-      .pipe(gulp.dest('./build/js/app'));
+      .pipe(angularFilesort())
+      .pipe(concat('app.js'))
+      .pipe(gulp.dest('./build/js'));
   });
 
-  gulp.task('build:injectAppJS', ['build:moveIndex', 'build:moveAppJS'], function() {
+  gulp.task('build:injectAppJS', ['build:index', 'build:moveAppJS'], function() {
     return gulp.src('./build/index.html')
       .pipe(
         inject(
-          gulp.src(['./build/js/app/*.js'])
-            .pipe(angularFilesort()),
+          gulp.src(['./build/js/app.js']),
+            // .pipe(angularFilesort()),
             {relative: true, name: 'app'}
         )
       )
@@ -129,16 +136,15 @@
     ];
 
     return gulp.src(vendorJS)
-      .pipe(plumber())
       .pipe(concat('vendor.js'))
-      .pipe(gulp.dest('./build/js/vendor'));
+      .pipe(gulp.dest('./build/js'));
   });
 
-  gulp.task('build:injectVendorJS', ['build:moveIndex', 'build:moveVendorJS'], function() {
+  gulp.task('build:injectVendorJS', ['build:index', 'build:moveVendorJS'], function() {
     return gulp.src('./build/index.html')
       .pipe(
         inject(
-          gulp.src(['./build/js/vendor/*.js']),
+          gulp.src(['./build/js/vendor.js']),
             {relative: true, name: 'vendor'}
         )
       )
@@ -162,7 +168,7 @@
     gulp.watch('./src/**/*', ['build']);
   });
 
-  gulp.task('build', ['build:appCSS', 'build:vendorCSS', 'build:appJS', 'build:vendorJS', 'build:views', 'build:vendorFonts'], browserSync.reload);
+  gulp.task('build', ['build:index', 'build:appCSS', 'build:vendorCSS', 'build:appJS', 'build:vendorJS', 'build:views', 'build:vendorFonts'], browserSync.reload);
 
   gulp.task('dev', ['serve', 'watch']);
 })();
