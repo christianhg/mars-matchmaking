@@ -159,7 +159,7 @@
   });
 
   gulp.task('watch', function() {
-    gulp.watch('./src/app/**/*', ['build']);
+    gulp.watch('./src/**/*', ['build']);
   });
 
   gulp.task('build', ['build:appCSS', 'build:vendorCSS', 'build:appJS', 'build:vendorJS', 'build:views', 'build:vendorFonts'], browserSync.reload);
