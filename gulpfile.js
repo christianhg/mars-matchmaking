@@ -19,89 +19,60 @@
   var uglify = require('gulp-uglify');
   var using = require('gulp-using');
 
-  gulp.task('build:vendorFonts', function() {
-    var src = [
+  var vendor = {
+    css: [
+      'bower_components/bootstrap/dist/css/bootstrap.min.css',
+    ],
+    fonts: [
       'bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.eot',
       'bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.svg',
       'bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf',
       'bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.woff',
       'bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2',
-    ];
-    var dest = './build/fonts';
+    ],
+    js: [
+      'bower_components/angular/angular.min.js',
+      'bower_components/angular-messages/angular-messages.min.js',
+      'bower_components/angular-ui-router/release/angular-ui-router.min.js',
+      'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+    ],
+  };
 
-    gulp.src(src)
+  gulp.task('fonts', function() {
+    gulp.src(vendor.fonts)
       .pipe(plumber())
-      .pipe(gulp.dest(dest));
+      .pipe(gulp.dest('./build/fonts'));
   });
 
-  gulp.task('build:views', function() {
-    var src = [
-      './src/app/**/*.html'
-    ];
-    var dest = './build';
-
-    gulp.src(src)
+  gulp.task('views', function() {
+    gulp.src(['./src/app/**/*.html'])
       .pipe(flatten())
-      .pipe(gulp.dest(dest));
-  });
-
-  gulp.task('build:moveIndex', function() {
-    return gulp.src('./src/index.html')
       .pipe(gulp.dest('./build'));
   });
 
-  gulp.task('build:index', ['build:moveIndex'], function() {
-
-  });
-
-  gulp.task('build:moveAppCSS', function() {
+  gulp.task('css-app', function() {
     return sass('./src/scss/app.scss', { sourcemap: true})
       .pipe(sourcemaps.write())
       .pipe(autoprefixer('last 2 versions'))
       .pipe(gulp.dest('./build/css'))
   });
 
-  gulp.task('build:injectAppCSS', ['build:index', 'build:moveAppCSS'], function() {
-    return gulp.src('./build/index.html')
-      .pipe(
-        inject(
-          gulp.src(['./build/css/app.css']),
-            {relative: true, name: 'app'}
-        )
-      )
-      .pipe(gulp.dest('./build'));
-  });
-
-  gulp.task('build:appCSS', ['build:appJS', 'build:injectAppCSS'], function() {
-
-  });
-
-  gulp.task('build:moveVendorCSS', function() {
-    var vendorCSS = [
-      'bower_components/bootstrap/dist/css/bootstrap.min.css',
-    ];
-
-    return gulp.src(vendorCSS)
+  gulp.task('css-vendor', function() {
+    return gulp.src(vendor.css)
       .pipe(concat('vendor.css'))
       .pipe(gulp.dest('./build/css'));
   });
 
-  gulp.task('build:injectVendorCSS', ['build:index', 'build:moveVendorCSS'], function() {
-    return gulp.src('./build/index.html')
-      .pipe(
-        inject(
-          gulp.src(['./build/css/vendor.css']),
-            {relative: true, name: 'vendor'}
-        )
-      )
+  gulp.task('css', ['css-app', 'css-vendor'], function() {
+
+  });
+
+  gulp.task('index', function() {
+    return gulp.src('./src/index.html')
       .pipe(gulp.dest('./build'));
-  });
+  })
 
-  gulp.task('build:vendorCSS', ['build:vendorJS', 'build:injectVendorCSS'], function() {
-
-  });
-
-  gulp.task('build:moveAppJS', function() {
+  gulp.task('js-app', function() {
     return gulp.src(['./src/app/**/*.js'])
       .pipe(plumber())
       .pipe(flatten())
@@ -113,55 +84,35 @@
       .pipe(gulp.dest('./build/js'));
   });
 
-  gulp.task('build:injectAppJS', ['build:index', 'build:moveAppJS'], function() {
-    return gulp.src('./build/index.html')
-      .pipe(
-        inject(
-          gulp.src(['./build/js/app.js']),
-            {relative: true, name: 'app'}
-        )
-      )
-      .pipe(gulp.dest('./build'));
-  });
-
-  gulp.task('build:appJS', ['build:injectAppJS'], function() {
-
-  });
-
-  gulp.task('build:moveVendorJS', function() {
-    var vendorJS = [
-      'bower_components/angular/angular.min.js',
-      'bower_components/angular-messages/angular-messages.min.js',
-      'bower_components/angular-ui-router/release/angular-ui-router.min.js',
-      'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js'
-    ];
-
-    return gulp.src(vendorJS)
+  gulp.task('js-vendor', function() {
+    return gulp.src(vendor.js)
       .pipe(concat('vendor.js'))
       .pipe(gulp.dest('./build/js'));
   });
 
-  gulp.task('build:injectVendorJS', ['build:index', 'build:moveVendorJS'], function() {
+  gulp.task('js', ['js-app', 'js-vendor'], function() {
+
+  });
+
+  gulp.task('inject', ['css', 'index', 'js'], function() {
     return gulp.src('./build/index.html')
-      .pipe(
-        inject(
-          gulp.src(['./build/js/vendor.js']),
-            {relative: true, name: 'vendor'}
-        )
-      )
+      .pipe(inject(
+        gulp.src(['./build/css/app.css']),
+          {relative: true, name: 'app'}
+      ))
+      .pipe(inject(
+        gulp.src(['./build/css/vendor.css']),
+          {relative: true, name: 'vendor'}
+      ))
+      .pipe(inject(
+          gulp.src(['./build/js/app.js']),
+            {relative: true, name: 'app'}
+      ))
+      .pipe(inject(
+        gulp.src(['./build/js/vendor.js']),
+          {relative: true, name: 'vendor'}
+      ))
       .pipe(gulp.dest('./build'));
-  });
-
-  gulp.task('build:vendorJS', ['build:injectVendorJS'], function() {
-
-  });
-
-  gulp.task('build:app', ['build:appCSS'], function() {
-
-  });
-
-  gulp.task('build:vendor', ['build:app', 'build:vendorCSS'], function() {
-
   });
 
   gulp.task('serve', ['build'], function() {
@@ -177,7 +128,7 @@
 
   });
 
-  gulp.task('build', ['build:index', 'build:app', 'build:vendor', 'build:views', 'build:vendorFonts'], browserSync.reload);
+  gulp.task('build', ['fonts', 'inject', 'views'], browserSync.reload);
 
   gulp.task('dev', ['serve'], function() {
     gulp.watch('./src/**/*', ['build']);
