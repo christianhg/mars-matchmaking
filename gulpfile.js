@@ -124,10 +124,6 @@
     });
   });
 
-  gulp.task('watch', function() {
-
-  });
-
   gulp.task('build', ['fonts', 'inject', 'views'], browserSync.reload);
 
   gulp.task('dev', ['serve'], function() {
