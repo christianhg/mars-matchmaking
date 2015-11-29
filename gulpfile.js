@@ -103,6 +103,7 @@
 
   gulp.task('build:moveAppJS', function() {
     return gulp.src(['./src/app/**/*.js'])
+      .pipe(plumber())
       .pipe(flatten())
       .pipe(jshint())
       .pipe(jshint.reporter(stylish))
@@ -116,8 +117,7 @@
     return gulp.src('./build/index.html')
       .pipe(
         inject(
-          gulp.src(['./build/js/app.js']),
-            // .pipe(angularFilesort()),
+          gulp.src(['./build/js/app.js'])
             {relative: true, name: 'app'}
         )
       )
