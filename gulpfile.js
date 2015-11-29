@@ -54,14 +54,14 @@
 
   });
 
-  gulp.task('build:compileAppCSS', function() {
+  gulp.task('build:moveAppCSS', function() {
     return sass('./src/scss/app.scss', { sourcemap: true})
       .pipe(sourcemaps.write())
       .pipe(autoprefixer('last 2 versions'))
       .pipe(gulp.dest('./build/css'))
   });
 
-  gulp.task('build:injectAppCSS', ['build:index', 'build:compileAppCSS'], function() {
+  gulp.task('build:injectAppCSS', ['build:index', 'build:moveAppCSS'], function() {
     return gulp.src('./build/index.html')
       .pipe(
         inject(
@@ -72,7 +72,7 @@
       .pipe(gulp.dest('./build'));
   });
 
-  gulp.task('build:appCSS', ['build:injectAppCSS'], function() {
+  gulp.task('build:appCSS', ['build:appJS', 'build:injectAppCSS'], function() {
 
   });
 
@@ -97,7 +97,7 @@
       .pipe(gulp.dest('./build'));
   });
 
-  gulp.task('build:vendorCSS', ['build:injectVendorCSS'], function() {
+  gulp.task('build:vendorCSS', ['build:vendorJS', 'build:injectVendorCSS'], function() {
 
   });
 
@@ -117,7 +117,7 @@
     return gulp.src('./build/index.html')
       .pipe(
         inject(
-          gulp.src(['./build/js/app.js'])
+          gulp.src(['./build/js/app.js']),
             {relative: true, name: 'app'}
         )
       )
@@ -156,6 +156,14 @@
 
   });
 
+  gulp.task('build:app', ['build:appCSS'], function() {
+
+  });
+
+  gulp.task('build:vendor', ['build:app', 'build:vendorCSS'], function() {
+
+  });
+
   gulp.task('serve', ['build'], function() {
     browserSync.init({
       server: './build',
@@ -166,10 +174,12 @@
   });
 
   gulp.task('watch', function() {
-    gulp.watch('./src/**/*', ['build']);
+
   });
 
-  gulp.task('build', ['build:index', 'build:appCSS', 'build:vendorCSS', 'build:appJS', 'build:vendorJS', 'build:views', 'build:vendorFonts'], browserSync.reload);
+  gulp.task('build', ['build:index', 'build:app', 'build:vendor', 'build:views', 'build:vendorFonts'], browserSync.reload);
 
-  gulp.task('dev', ['serve', 'watch']);
+  gulp.task('dev', ['serve'], function() {
+    gulp.watch('./src/**/*', ['build']);
+  });
 })();
